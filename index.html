@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Happy 40th, Aneesh! 🎂</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background:
+        linear-gradient(
+          135deg,
+          #005bea,
+          #00c6fb
+        );
+
+      color: white;
+
+      overflow-x: hidden;
+    }
+
+
+    /* =================================
+       FLOATING HEARTS
+    ================================= */
+
+    .heart {
+      position: fixed;
+
+      font-size: 25px;
+
+      animation:
+        float 7s linear infinite;
+
+      opacity: 0.7;
+
+      z-index: 0;
+
+      pointer-events: none;
+    }
+
+    .heart:nth-child(1) {
+      left: 8%;
+      animation-delay: 0s;
+    }
+
+    .heart:nth-child(2) {
+      left: 25%;
+      animation-delay: 2s;
+    }
+
+    .heart:nth-child(3) {
+      left: 70%;
+      animation-delay: 1s;
+    }
+
+    .heart:nth-child(4) {
+      left: 90%;
+      animation-delay: 3s;
+    }
+
+
+    /* =================================
+       MAIN CONTAINER
+    ================================= */
+
+    .container {
+      width: 100%;
+
+      max-width: 900px;
+
+      margin: auto;
+
+      padding:
+        40px 20px 70px;
+
+      position: relative;
+
+      z-index: 1;
+    }
+
+
+    /* =================================
+       MAIN BIRTHDAY CARD
+    ================================= */
+
+    .card {
+      padding:
+        50px 30px;
+
+      text-align: center;
+
+      background:
+        rgba(255, 255, 255, 0.16);
+
+      backdrop-filter:
+        blur(15px);
+
+      -webkit-backdrop-filter:
+        blur(15px);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.3);
+
+      border-radius: 30px;
+
+      box-shadow:
+        0 20px 50px
+        rgba(0, 0, 0, 0.25);
+
+      animation:
+        appear 1.2s ease;
+    }
+
+
+    .emoji {
+      font-size: 75px;
+
+      animation:
+        bounce 1.8s infinite;
+
+      margin-bottom: 15px;
+    }
+
+
+    h1 {
+      font-size:
+        clamp(
+          2.4rem,
+          9vw,
+          4.5rem
+        );
+
+      margin-bottom: 10px;
+
+      text-shadow:
+        0 4px 15px
+        rgba(0, 0, 0, 0.2);
+    }
+
+
+    .subtitle {
+      font-size:
+        clamp(
+          1.3rem,
+          5vw,
+          2rem
+        );
+
+      margin-bottom: 25px;
+    }
+
+
+    .intro {
+      font-size: 1.05rem;
+
+      line-height: 1.7;
+
+      max-width: 650px;
+
+      margin: auto;
+    }
+
+
+    .wish {
+      font-size: 1.15rem;
+
+      font-weight: bold;
+
+      line-height: 1.7;
+
+      margin-top: 20px;
+    }
+
+
+    /* =================================
+       SURPRISE BUTTON
+    ================================= */
+
+    button {
+      border: none;
+
+      padding:
+        16px 30px;
+
+      margin-top: 30px;
+
+      border-radius: 50px;
+
+      background: white;
+
+      color: #0066cc;
+
+      font-size: 1rem;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      transition:
+        0.3s ease;
+
+      box-shadow:
+        0 8px 20px
+        rgba(0, 0, 0, 0.15);
+    }
+
+
+    button:hover {
+      transform:
+        scale(1.08);
+
+      box-shadow:
+        0 12px 25px
+        rgba(0, 0, 0, 0.25);
+    }
+
+
+    button:active {
+      transform:
+        scale(0.95);
+    }
+
+
+    /* =================================
+       MESSAGE SECTION
+    ================================= */
+
+    .messages-section {
+      margin-top: 60px;
+
+      text-align: center;
+    }
+
+
+    .messages-title {
+      font-size:
+        clamp(
+          2rem,
+          7vw,
+          3rem
+        );
+
+      margin-bottom: 10px;
+    }
+
+
+    .messages-subtitle {
+      margin-bottom: 35px;
+
+      opacity: 0.9;
+
+      line-height: 1.6;
+    }
+
+
+    /* =================================
+       FLIPBOOK GRID
+    ================================= */
+
+    .message-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 25px;
+
+      max-width: 800px;
+
+      margin: auto;
+    }
+
+
+    /* =================================
+       FLIP CARD
+    ================================= */
+
+    .flip-card {
+
+      background: transparent;
+
+      width: 100%;
+
+      height: 390px;
+
+      perspective: 1200px;
+
+      cursor: pointer;
+    }
+
+
+    .flip-card-inner {
+
+      position: relative;
+
+      width: 100%;
+
+      height: 100%;
+
+      text-align: center;
+
+      transition:
+        transform 0.8s;
+
+      transform-style:
+        preserve-3d;
+    }
+
+
+    .flip-card.flipped
+    .flip-card-inner {
+
+      transform:
+        rotateY(180deg);
+    }
+
+
+    /* =================================
+       FRONT + BACK
+    ================================= */
+
+    .flip-card-front,
+    .flip-card-back {
+
+      position: absolute;
+
+      width: 100%;
+
+      height: 100%;
+
+      -webkit-backface-visibility:
+        hidden;
+
+      backface-visibility:
+        hidden;
+
+      border-radius: 25px;
+
+      box-shadow:
+        0 15px 35px
+        rgba(0, 0, 0, 0.2);
+    }
+
+
+    /* =================================
+       FRONT
+    ================================= */
+
+    .flip-card-front {
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #e8f7ff
+        );
+
+      color: #0066cc;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      align-items: center;
+
+      padding: 30px;
+
+      border:
+        4px solid
+        rgba(255,255,255,0.8);
+    }
+
+
+    .front-icon {
+
+      font-size: 65px;
+
+      margin-bottom: 20px;
+
+      animation:
+        gentleBounce 2s infinite;
+    }
+
+
+    .front-title {
+
+      font-size: 1.7rem;
+
+      font-weight: bold;
+
+      margin-bottom: 12px;
+    }
+
+
+    .front-name {
+
+      font-size: 1.15rem;
+
+      font-weight: bold;
+
+      margin-bottom: 25px;
+    }
+
+
+    .tap {
+
+      font-size: 0.9rem;
+
+      opacity: 0.65;
+
+      animation:
+        pulse 2s infinite;
+    }
+
+
+    /* =================================
+       BACK
+    ================================= */
+
+    .flip-card-back {
+
+      background:
+        white;
+
+      color: #333;
+
+      transform:
+        rotateY(180deg);
+
+      padding: 25px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: space-between;
+
+      text-align: left;
+
+      overflow-y: auto;
+    }
+
+
+    .back-icon {
+
+      text-align: center;
+
+      font-size: 30px;
+
+      margin-bottom: 10px;
+    }
+
+
+    .back-message {
+
+      font-size: 0.92rem;
+
+      line-height: 1.7;
+
+      flex: 1;
+    }
+
+
+    .back-message p {
+
+      margin-bottom: 12px;
+    }
+
+
+    .sender {
+
+      text-align: right;
+
+      color: #0066cc;
+
+      font-weight: bold;
+
+      margin-top: 15px;
+    }
+
+
+    /* =================================
+       FOOTER
+    ================================= */
+
+    .footer {
+
+      text-align: center;
+
+      margin-top: 45px;
+
+      font-size: 0.9rem;
+
+      opacity: 0.8;
+    }
+
+
+    /* =================================
+       ANIMATIONS
+    ================================= */
+
+    @keyframes appear {
+
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(40px)
+          scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+      }
+    }
+
+
+    @keyframes bounce {
+
+      0%, 100% {
+        transform:
+          translateY(0);
+      }
+
+      50% {
+        transform:
+          translateY(-15px);
+      }
+    }
+
+
+    @keyframes gentleBounce {
+
+      0%, 100% {
+        transform:
+          translateY(0);
+      }
+
+      50% {
+        transform:
+          translateY(-8px);
+      }
+    }
+
+
+    @keyframes pulse {
+
+      0%, 100% {
+        opacity: 0.5;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+
+    @keyframes float {
+
+      0% {
+
+        bottom: -50px;
+
+        transform:
+          translateX(0)
+          rotate(0deg);
+      }
+
+      50% {
+
+        transform:
+          translateX(30px)
+          rotate(20deg);
+      }
+
+      100% {
+
+        bottom: 110vh;
+
+        transform:
+          translateX(-30px)
+          rotate(-20deg);
+      }
+    }
+
+
+    /* =================================
+       MOBILE
+    ================================= */
+
+    @media (max-width: 650px) {
+
+      .container {
+
+        padding:
+          25px 15px 50px;
+      }
+
+
+      .card {
+
+        padding:
+          40px 22px;
+
+        border-radius:
+          25px;
+      }
+
+
+      .emoji {
+
+        font-size:
+          60px;
+      }
+
+
+      .intro {
+
+        font-size:
+          0.98rem;
+      }
+
+
+      .wish {
+
+        font-size:
+          1rem;
+      }
+
+
+      .message-grid {
+
+        grid-template-columns:
+          1fr;
+
+        gap: 25px;
+      }
+
+
+      .flip-card {
+
+        height: 430px;
+      }
+
+
+      .flip-card-front {
+
+        padding:
+          25px;
+      }
+
+
+      .flip-card-back {
+
+        padding:
+          22px;
+      }
+
+
+      .back-message {
+
+        font-size:
+          0.9rem;
+
+        line-height:
+          1.65;
+      }
+
+
+      button {
+
+        width:
+          100%;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =================================
+       FLOATING HEARTS
+  ================================= -->
+
+  <div class="heart">💙</div>
+  <div class="heart">💙</div>
+  <div class="heart">💙</div>
+  <div class="heart">💙</div>
+
+
+  <div class="container">
+
+
+    <!-- =================================
+         MAIN BIRTHDAY CARD
+    ================================= -->
+
+    <div class="card">
+
+      <div class="emoji">
+        🎂
+      </div>
+
+
+      <h1>
+        Happy 40th, Aneesh!
+      </h1>
+
+
+      <div class="subtitle">
+        🎉 To Our Special Someone 🎉
+      </div>
+
+
+      <p class="intro">
+
+        Today isn't just about turning 40.
+
+        It's about celebrating the person you are,
+        the people you've helped, and the difference
+        you've made along the way.
+
+      </p>
+
+
+      <div class="wish">
+
+        Here's to an amazing 40th birthday
+        and an even better chapter ahead. ✨
+
+      </div>
+
+
+      <button onclick="celebrate()">
+
+        🎁 Click Here for Surprise!
+
+      </button>
+
+    </div>
+
+
+
+    <!-- =================================
+         MESSAGE SECTION
+    ================================= -->
+
+    <section class="messages-section">
+
+
+      <h2 class="messages-title">
+        💌 Birthday Messages
+      </h2>
+
+
+      <p class="messages-subtitle">
+
+        Four messages from the people
+        celebrating you today. 💙
+
+        <br>
+
+        <strong>
+          Tap a card to open it.
+        </strong>
+
+      </p>
+
+
+
+      <div class="message-grid">
+
+
+        <!-- =================================
+             RACH
+        ================================= -->
+
+        <div
+          class="flip-card"
+          onclick="flipCard(this)"
+        >
+
+          <div class="flip-card-inner">
+
+
+            <!-- FRONT -->
+
+            <div class="flip-card-front">
+
+              <div class="front-icon">
+                💙
+              </div>
+
+              <div class="front-title">
+                A Birthday Message
+              </div>
+
+              <div class="front-name">
+                From Rach &<br>
+                the Operations Team
+              </div>
+
+              <div class="tap">
+                👆 Tap to open
+              </div>
+
+            </div>
+
+
+            <!-- BACK -->
+
+            <div class="flip-card-back">
+
+              <div class="back-icon">
+                💙
+              </div>
+
+
+              <div class="back-message">
+
+                <p>
+                  <strong>
+                    Happy 40th, Aneesh.
+                  </strong>
+                </p>
+
+
+                <p>
+                  We did look for a way to automate this.
+                  Turns out birthday messages still have
+                  to be typed out by hand. Bit of a gap
+                  in the system ;-)
+                </p>
+
+
+                <p>
+                  Anyway. Forty years on the planet and
+                  you still call most of us mate. We've
+                  stopped fighting it!
+                </p>
+
+
+                <p>
+                  Thank you for the way you lead this team.
+                  You back us, you make time when you
+                  clearly don't have any, and half the time
+                  you've sorted something before anyone's
+                  finished asking. That's rarer than you'd think.
+                </p>
+
+
+                <p>
+                  Forty is just a number. A big round one,
+                  but still just a number.
+                </p>
+
+
+                <p>
+                  Turn off the laptop and enjoy the day.
+                  Man you've earnt it.
+                </p>
+
+              </div>
+
+
+              <div class="sender">
+                — Rach and the Operations Team
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             ROME
+        ================================= -->
+
+        <div
+          class="flip-card"
+          onclick="flipCard(this)"
+        >
+
+          <div class="flip-card-inner">
+
+
+            <!-- FRONT -->
+
+            <div class="flip-card-front">
+
+              <div class="front-icon">
+                💙
+              </div>
+
+              <div class="front-title">
+                A Birthday Message
+              </div>
+
+              <div class="front-name">
+                From Rome
+              </div>
+
+              <div class="tap">
+                👆 Tap to open
+              </div>
+
+            </div>
+
+
+            <!-- BACK -->
+
+            <div class="flip-card-back">
+
+              <div class="back-icon">
+                💙
+              </div>
+
+
+              <div class="back-message">
+
+                <p>
+                  <strong>
+                    Happy 40th, Aneesh! 💙
+                  </strong>
+                </p>
+
+
+                <p>
+                  Thank you for somehow taking all my crazy
+                  process and tool ideas and actually turning
+                  them into real, working things 😂
+                </p>
+
+
+                <p>
+                  More than that, I really appreciate how
+                  thoughtful and generous you’ve always been
+                  with me. You’re genuinely such a good person,
+                  and I feel incredibly lucky to be part of
+                  NewWave and to work with you.
+                </p>
+
+
+                <p>
+                  Hope you have the best birthday —
+                  you deserve it! ❤️
+                </p>
+
+              </div>
+
+
+              <div class="sender">
+                — Rome
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             ANGEL
+        ================================= -->
+
+        <div
+          class="flip-card"
+          onclick="flipCard(this)"
+        >
+
+          <div class="flip-card-inner">
+
+
+            <!-- FRONT -->
+
+            <div class="flip-card-front">
+
+              <div class="front-icon">
+                🎉
+              </div>
+
+              <div class="front-title">
+                A Birthday Message
+              </div>
+
+              <div class="front-name">
+                From Angel
+              </div>
+
+              <div class="tap">
+                👆 Tap to open
+              </div>
+
+            </div>
+
+
+            <!-- BACK -->
+
+            <div class="flip-card-back">
+
+              <div class="back-icon">
+                🎉
+              </div>
+
+
+              <div class="back-message">
+
+                <p>
+                  <strong>
+                    Happy happy 40th birthday, Aneesh!
+                  </strong>
+                </p>
+
+
+                <p>
+                  I really appreciate how you handle things
+                  with such calmness and perspective. I hope
+                  40 reminds you of how far you’ve come and
+                  how well you’ve handled everything life has
+                  thrown your way.
+                </p>
+
+
+                <p>
+                  Here’s to great things from here on out—
+                  you deserve it. The rest is confetti! 🎉
+                </p>
+
+              </div>
+
+
+              <div class="sender">
+                — Angel
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             EJ
+        ================================= -->
+
+        <div
+          class="flip-card"
+          onclick="flipCard(this)"
+        >
+
+          <div class="flip-card-inner">
+
+
+            <!-- FRONT -->
+
+            <div class="flip-card-front">
+
+              <div class="front-icon">
+                ❤️
+              </div>
+
+              <div class="front-title">
+                A Birthday Message
+              </div>
+
+              <div class="front-name">
+                From EJ
+              </div>
+
+              <div class="tap">
+                👆 Tap to open
+              </div>
+
+            </div>
+
+
+            <!-- BACK -->
+
+            <div class="flip-card-back">
+
+              <div class="back-icon">
+                ❤️
+              </div>
+
+
+              <div class="back-message">
+
+                <p>
+                  <strong>
+                    Happy 40th, Aneesh! 🎉
+                  </strong>
+                </p>
+
+
+                <p>
+                  Thank you for being such a kind, thoughtful,
+                  and understanding person. I really appreciate
+                  how you always make time for the team, listen
+                  to our ideas, and somehow manage to make things
+                  work even when there’s a lot going on.
+                  Your hard work and the way you treat people
+                  genuinely make a difference.
+                </p>
+
+
+                <p>
+                  Wishing you a fantastic 40th and an amazing
+                  year ahead. You deserve all the good things
+                  coming your way! ❤️
+                </p>
+
+
+                <p>
+                  And of course, I’m looking forward to sending
+                  you more Ops feedback in the future 😂 —
+                  I’m sure you’ll love that!
+                </p>
+
+              </div>
+
+
+              <div class="sender">
+                — EJ
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =================================
+         FOOTER
+    ================================= -->
+
+    <div class="footer">
+
+      Made with 💙 for Aneesh's 40th
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- =================================
+       JAVASCRIPT
+  ================================= -->
+
+  <script>
+
+
+    /* ================================
+       FLIP CARDS
+    ================================= */
+
+    function flipCard(card) {
+
+      card.classList.toggle("flipped");
+
+      celebrateSmall();
+
+    }
+
+
+
+    /* ================================
+       BIG CONFETTI
+    ================================= */
+
+    function celebrate() {
+
+      createConfetti(220);
+
+    }
+
+
+
+    /* ================================
+       SMALL CONFETTI
+    ================================= */
+
+    function celebrateSmall() {
+
+      createConfetti(35);
+
+    }
+
+
+
+    /* ================================
+       CONFETTI ENGINE
+    ================================= */
+
+    function createConfetti(amount) {
+
+
+      const colors = [
+
+        "#ffffff",
+
+        "#90e0ef",
+
+        "#48cae4",
+
+        "#ffd166",
+
+        "#ff4d6d",
+
+        "#8338ec"
+
+      ];
+
+
+      for (
+        let i = 0;
+        i < amount;
+        i++
+      ) {
+
+
+        const confetti =
+          document.createElement("div");
+
+
+        confetti.style.position =
+          "fixed";
+
+
+        confetti.style.width =
+          Math.random() * 8 + 5 + "px";
+
+
+        confetti.style.height =
+          Math.random() * 12 + 6 + "px";
+
+
+        confetti.style.backgroundColor =
+
+          colors[
+            Math.floor(
+              Math.random() *
+              colors.length
+            )
+          ];
+
+
+        confetti.style.left =
+
+          Math.random() *
+          100 +
+          "vw";
+
+
+        confetti.style.top =
+          "-20px";
+
+
+        confetti.style.zIndex =
+          "999";
+
+
+        confetti.style.pointerEvents =
+          "none";
+
+
+        confetti.style.borderRadius =
+
+          Math.random() > 0.5
+            ? "50%"
+            : "2px";
+
+
+        document.body.appendChild(
+          confetti
+        );
+
+
+        const duration =
+
+          Math.random() * 3 + 2;
+
+
+        const rotation =
+
+          Math.random() *
+          720 -
+          360;
+
+
+        confetti.animate(
+
+          [
+
+            {
+
+              transform:
+                "translateY(0) rotate(0deg)",
+
+              opacity: 1
+
+            },
+
+            {
+
+              transform:
+
+                `translateY(110vh)
+                 rotate(${rotation}deg)`,
+
+              opacity: 0
+
+            }
+
+          ],
+
+          {
+
+            duration:
+              duration * 1000,
+
+            easing:
+              "cubic-bezier(.25,.46,.45,.94)"
+
+          }
+
+        );
+
+
+        setTimeout(
+          () => confetti.remove(),
+          duration * 1000
+        );
+
+      }
+
+    }
+
+
+    /* ================================
+       INITIAL CONFETTI
+    ================================= */
+
+    window.addEventListener(
+      "load",
+      () => {
+
+        setTimeout(
+          () => createConfetti(100),
+          700
+        );
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
